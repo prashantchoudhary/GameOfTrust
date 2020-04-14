@@ -9,25 +9,25 @@ public class RulesEngineTest {
     @Test
     public void BothHaveTwoCoinsIfBothCooperate() {
         Pair result = rulesEngine.getScoreForMoves(MoveTypes.Cooperate, MoveTypes.Cooperate);
-        assertEquals(new Pair<>(2,2), result);
+        assertEquals(rulesEngine.BOTH_COOPERATE, result);
     }
 
     @Test
     public void FirstCheatsAndSecondCooperates() {
         Pair result = rulesEngine.getScoreForMoves(MoveTypes.Cheat, MoveTypes.Cooperate);
-        assertEquals(new Pair<>(3,-1), result);
+        assertEquals(rulesEngine.FIRST_CHEAT_SECOND_COOPERATE, result);
     }
 
 
     @Test
     public void SecondCheatsAndFirstCooperates() {
         Pair result = rulesEngine.getScoreForMoves(MoveTypes.Cooperate, MoveTypes.Cheat);
-        assertEquals(new Pair<>(-1,3), result);
+        assertEquals(rulesEngine.FIRST_COOPERATE_SECOND_CHEAT, result);
     }
 
     @Test
     public void BothHaveOneCoinIfBothCheat() {
         Pair result = rulesEngine.getScoreForMoves(MoveTypes.Cheat, MoveTypes.Cheat);
-        assertEquals(new Pair<>(0,0), result);
+        assertEquals(rulesEngine.BOTH_CHEAT, result);
     }
 }

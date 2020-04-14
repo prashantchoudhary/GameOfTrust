@@ -11,8 +11,8 @@ public class GameTest {
         RulesEngine rulesEngine = new RulesEngine();
         Game game = new Game(player1, player2, rulesEngine, System.out);
         game.playOnce();
-        assertEquals((Integer) 2, player1.getScore());
-        assertEquals((Integer) 2, player2.getScore());
+        assertEquals(new Score(2), game.scoreFor(player1));
+        assertEquals(new Score(2), game.scoreFor(player2));
     }
 
     @Test
@@ -23,8 +23,8 @@ public class GameTest {
         Game game = new Game(player1, player2, rulesEngine, System.out);
         game.playOnce();
         game.playOnce();
-        assertEquals((Integer) 4, player1.getScore());
-        assertEquals((Integer) 4, player2.getScore());
+        assertEquals(new Score(4), game.scoreFor(player1));
+        assertEquals(new Score(4), game.scoreFor(player2));
     }
 
     @Test
@@ -36,8 +36,8 @@ public class GameTest {
         for (int i = 0; i < 5; i++) {
             game.playOnce();
         }
-        assertEquals((Integer) 10, player1.getScore());
-        assertEquals((Integer) 10, player2.getScore());
+        assertEquals(new Score(10), game.scoreFor(player1));
+        assertEquals(new Score(10), game.scoreFor(player2));
     }
 
 }

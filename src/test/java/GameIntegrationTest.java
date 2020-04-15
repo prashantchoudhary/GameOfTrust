@@ -1,13 +1,11 @@
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
 import java.util.Scanner;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class GameIntegrationTest {
-    private Scanner scanner=mock(Scanner.class);
     @Test
     public void whenBothPlayersAreCooperatingForTwoRoundsExpectScoreFourEach() {
         Player player1 = new Player(new CooperateBehaviour());
@@ -54,12 +52,9 @@ public class GameIntegrationTest {
 
     @Test
     public void whenFirstCooperateConsolePlayerAlwaysCheatsForFiveRoundsExpectScoreMinus5And15() {
-        when(scanner.nextLine())
-                .thenReturn("CH")
-                .thenReturn("CH")
-                .thenReturn("CH")
-                .thenReturn("CH")
-                .thenReturn("CH");
+        System.setIn(new ByteArrayInputStream("CH\nCH\nCH\nCH\nCH".getBytes()));
+        Scanner scanner = new Scanner(System.in);
+
         Player player1 = new Player(new CooperateBehaviour());
         Player player2 = new Player(new ConsolePlayerBehaviour(scanner));
         RulesEngine rulesEngine = new RulesEngine();
@@ -71,12 +66,9 @@ public class GameIntegrationTest {
 
     @Test
     public void whenFirstPlayerAndConsolePlayerAlwaysCheatsForFiveRoundsExpectScoresZero() {
-        when(scanner.nextLine())
-                .thenReturn("CH")
-                .thenReturn("CH")
-                .thenReturn("CH")
-                .thenReturn("CH")
-                .thenReturn("CH");
+        System.setIn(new ByteArrayInputStream("CH\nCH\nCH\nCH\nCH".getBytes()));
+        Scanner scanner = new Scanner(System.in);
+
         Player player1 = new Player(new CheatBehaviour());
         Player player2 = new Player(new ConsolePlayerBehaviour(scanner));
         RulesEngine rulesEngine = new RulesEngine();
@@ -88,12 +80,8 @@ public class GameIntegrationTest {
 
     @Test
     public void whenFirstPlayerCheatsAndConsolePlayerPlaysSequenceCHCOCHCOCHForFiveRoundsExpectScoreMinus5And15() {
-        when(scanner.nextLine())
-                .thenReturn("CH")
-                .thenReturn("CO")
-                .thenReturn("CH")
-                .thenReturn("CO")
-                .thenReturn("CH");
+        System.setIn(new ByteArrayInputStream("CH\nCO\nCH\nCO\nCH".getBytes()));
+        Scanner scanner = new Scanner(System.in);
 
         Player player1 = new Player(new CheatBehaviour());
         Player player2 = new Player(new ConsolePlayerBehaviour(scanner));

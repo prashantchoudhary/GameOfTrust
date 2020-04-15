@@ -1,4 +1,5 @@
 import javafx.util.Pair;
+
 import java.io.PrintStream;
 
 public class Game {
@@ -17,15 +18,9 @@ public class Game {
         this.player2 = player2;
         this.playerScore1 = new PlayerScore(1, new Score(0));
         this.playerScore2 = new PlayerScore(2, new Score(0));
+
         this.rulesEngine = rulesEngine;
         this.printStream = printStream;
-    }
-
-    public void playOnce() {
-        updateRound();
-        Pair<Score, Score> score = rulesEngine.getScoreForMoves(player1.getCurrentMove(), player2.getCurrentMove());
-        updateScores(score);
-        displayScores();
     }
 
     private void updateRound() {
@@ -42,6 +37,19 @@ public class Game {
         printStream.println("Player 1 Score:" + playerScore1.getScore());
         printStream.println("Player 2 Score:" + playerScore2.getScore());
         printStream.println();
+    }
+
+    private void playOnce() {
+        updateRound();
+        Pair<Score, Score> score = rulesEngine.getScoreForMoves(player1.getCurrentMove(), player2.getCurrentMove());
+        updateScores(score);
+        displayScores();
+    }
+
+    public void playFor(int numberOfRounds) {
+        for (int i = 0; i < numberOfRounds; i++) {
+            playOnce();
+        }
     }
 
     public Score scoreFor(Player player) {

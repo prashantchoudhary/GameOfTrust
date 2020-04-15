@@ -1,13 +1,13 @@
-public class Player {
+public class Player implements Behaviour {
 
-    private MoveTypes moveType;
+    private Behaviour behaviour;
 
-    public Player(MoveTypes moveType) {
-
-        this.moveType = moveType;
+    public Player(Behaviour behaviour) {
+        this.behaviour = behaviour;
     }
 
     public MoveTypes getCurrentMove() {
-        return this.moveType;
+        return this.behaviour.getCurrentMove();
     }
 }
+

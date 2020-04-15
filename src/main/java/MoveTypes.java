@@ -1,3 +1,3 @@
 public enum MoveTypes {
-    Cooperate,Cheat
+    COOPERATE, CHEAT;
 }

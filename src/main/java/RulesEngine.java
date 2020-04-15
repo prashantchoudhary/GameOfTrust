@@ -8,9 +8,9 @@ public class RulesEngine {
     public final Pair<Score,Score>  FIRST_CHEAT_SECOND_COOPERATE=new Pair<>(new Score(3),new Score(-1));
 
     public Pair<Score, Score> getScoreForMoves(MoveTypes player1Move, MoveTypes player2Move) {
-        if (player1Move == MoveTypes.Cooperate && player2Move==MoveTypes.Cooperate) return BOTH_COOPERATE;
-        if (player1Move == MoveTypes.Cheat && player2Move==MoveTypes.Cooperate) return FIRST_CHEAT_SECOND_COOPERATE;
-        if (player1Move == MoveTypes.Cooperate && player2Move==MoveTypes.Cheat) return FIRST_COOPERATE_SECOND_CHEAT;
+        if (player1Move == MoveTypes.COOPERATE && player2Move==MoveTypes.COOPERATE) return BOTH_COOPERATE;
+        if (player1Move == MoveTypes.CHEAT && player2Move==MoveTypes.COOPERATE) return FIRST_CHEAT_SECOND_COOPERATE;
+        if (player1Move == MoveTypes.COOPERATE && player2Move==MoveTypes.CHEAT) return FIRST_COOPERATE_SECOND_CHEAT;
         return BOTH_CHEAT;
     }
 

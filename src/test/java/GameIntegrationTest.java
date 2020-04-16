@@ -91,4 +91,60 @@ public class GameIntegrationTest {
         assertEquals(new Score(6), game.scoreFor(player1));
         assertEquals(new Score(-2), game.scoreFor(player2));
     }
+
+
+    @Test
+    public void whenOpponentPlayerPlaysFirstRoundExpectsToNotifyMoveType() {
+        CopyCatBehaviour copyCatPlayer1 = new CopyCatBehaviour();
+        CopyCatBehaviour copyCatPlayer2 = new CopyCatBehaviour();
+        Player player1 = new Player(copyCatPlayer1);
+        Player player2 = new Player(copyCatPlayer2);
+
+        RulesEngine rulesEngine = new RulesEngine();
+
+        Game game = new Game(player1, player2, rulesEngine, System.out);
+        game.addObserver(copyCatPlayer1);
+        game.addObserver(copyCatPlayer2);
+
+        game.playFor(3);
+
+        assertEquals(new Score(6), game.scoreFor(player1));
+        assertEquals(new Score(6), game.scoreFor(player2));
+    }
+
+    @Test
+    public void whenFirstPlayerPlaysCheatsAndSecondIsCopyCatFor3RoundsExpectsScoresBoth0() {
+        Behaviour cheatPlayer = new CheatBehaviour();
+        CopyCatBehaviour copyCatPlayer = new CopyCatBehaviour();
+        Player player1 = new Player(cheatPlayer);
+        Player player2 = new Player(copyCatPlayer);
+
+        RulesEngine rulesEngine = new RulesEngine();
+
+        Game game = new Game(player1, player2, rulesEngine, System.out);
+        game.addObserver(copyCatPlayer);
+
+        game.playFor(2);
+
+        assertEquals(new Score(3), game.scoreFor(player1));
+        assertEquals(new Score(-1), game.scoreFor(player2));
+    }
+
+    @Test
+    public void whenFirstPlayerIsCopyCatAndSecondIsCheatFor6RoundsExpectsScoresMinus1And3() {
+        Behaviour cheatPlayer = new CheatBehaviour();
+        CopyCatBehaviour copyCatPlayer = new CopyCatBehaviour();
+        Player player1 = new Player(copyCatPlayer);
+        Player player2 = new Player(cheatPlayer);
+
+        RulesEngine rulesEngine = new RulesEngine();
+
+        Game game = new Game(player1, player2, rulesEngine, System.out);
+        game.addObserver(copyCatPlayer);
+
+        game.playFor(6);
+
+        assertEquals(new Score(-1), game.scoreFor(player1));
+        assertEquals(new Score(3), game.scoreFor(player2));
+    }
 }

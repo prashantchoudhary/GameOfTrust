@@ -1,8 +1,9 @@
 import javafx.util.Pair;
 
 import java.io.PrintStream;
+import java.util.Observable;
 
-public class Game {
+public class Game extends Observable {
     private Integer round = 0;
     private PlayerScore playerScore1;
     private PlayerScore playerScore2;
@@ -41,10 +42,21 @@ public class Game {
 
     private void playOnce() {
         updateRound();
-        Pair<Score, Score> score = rulesEngine.getScoreForMoves(player1.getCurrentMove(), player2.getCurrentMove());
+        MoveTypes player1move=playPlayerMove(player1);
+        MoveTypes player2move=playPlayerMove(player2);
+
+        Pair<Score, Score> score = rulesEngine.getScoreForMoves(player1move, player2move);
         updateScores(score);
         displayScores();
     }
+
+    private MoveTypes playPlayerMove(Player player){
+        MoveTypes currentMove=player.getCurrentMove();
+        setChanged();
+        notifyObservers(currentMove);
+        return currentMove;
+    }
+
 
     public void playFor(int numberOfRounds) {
         for (int i = 0; i < numberOfRounds; i++) {
